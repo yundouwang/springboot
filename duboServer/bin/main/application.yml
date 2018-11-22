@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: dubbo-server
+server:
+  port: 8880
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: localhost:2181
+    id: dubbo
+  protocol:
+    port: 2880
+    name: dubbo
+    id: dubbo
+    status: server
+  application:
+    name: dubbo-server1
+    id: dubbo-server1
+    qos-enable: false
+  scan:
+    basePackages: org.geng.dubbo

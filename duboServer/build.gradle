@@ -1,0 +1,57 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.6.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.geng'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	springCloudVersion = 'Finchley.RELEASE'
+}
+
+configurations {
+	compile.exclude module: 'spring-boot-starter-logging'
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')	
+//	compile group: 'com.alibaba.spring.boot', name: 'dubbo-spring-boot-starter', version: '0.1.0'
+	compile('com.alibaba.boot:dubbo-spring-boot-starter:0.2.0')
+ /**
+	compile ("org.apache.curator:curator-framework:4.0.0") {
+            exclude group: 'org.apache.zookeeper', module: 'zookeeper'
+ 	}
+
+ 	compile('org.apache.curator:curator-recipes:4.0.0') {
+  				exclude group: 'org.apache.zookeeper', module: 'zookeeper'
+	}
+	*/
+	compile group: 'org.apache.zookeeper', name: 'zookeeper', version: '3.4.13'
+	compile('org.springframework.boot:spring-boot-starter-log4j2')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
